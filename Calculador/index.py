@@ -79,11 +79,25 @@
 
 
 ###### Redondeo
-x=6
-print(f"La raiz cuadrada de {x} es: {round(x**0.5)}")
-m=90/7
-print(m)
-print(round(m))
+# x=6
+# print(f"La raiz cuadrada de {x} es: {round(x**0.5)}")
+# m=90/7
+# print(m)
+# print(round(m))
+#
+# valor= 95.666666666666
+# print(round(valor,2))
+#  # Redondeo siempre sera foat fuera de la declaracion, si se hace dentro, se acomodara al tipo d dato
+#
+#
+# num1 = 13.87
+#
+#
+# print(round(num1))
+# print(int(num1))
 
-valor= 95.666666666666
-print(round(valor,2))
+nombre = input('Cual es tu nmbre?')
+ventas = float(input('Cuanto hiciste de tus ventas?'))
+comision = round(ventas * 13 /100, 2)
+
+print(f"Tu nombre es: {nombre} y tu comision es de: {comision}")
