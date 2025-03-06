@@ -58,9 +58,9 @@
 #
 #
 # #### Operador Matematicos
-# x=6
-# y=2
-# z=7
+x=6
+y=2
+z=7
 # print(f"{x} y {y} suman: {x+y}")
 # print(f"{x} y {y} restan: {x-y}")
 # print(f"{x} y {y} multiplidos: {x*y}")
@@ -71,7 +71,7 @@
 # print(f"{z} dividido al piso de {y} es igual {z//y}")
 #
 # #Modulo (Restante de la division) para ver si es par tambien podria quedar
-# print(f"{z} modulo de {y} es igual {z%y}")
+print(f"{z} modulo de {y} es igual {z%y}")
 # print(f"{x} elevado a la  {y} divididos: {x**y}")
 # print(f"{x} elevado a la  {3} divididos: {x**3}")
 # print(f"La raiz cuadrada de {x} es: {x**0.5}")
