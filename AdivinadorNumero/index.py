@@ -251,3 +251,113 @@
 # shuffle(numeros) # no se almacena en lista, no se aplica a inmutables
 # print(numeros)
 
+# ### COMPRENSION DE LISTAS
+# palabra = 'python'
+# lista = []
+#
+# for letra in palabra:
+#     lista.append(letra)
+# print(lista)
+#
+# ## forma corta
+# lista = [letra for letra in palabra]
+# lista = [ff for ff in palabra]
+# lista = [n for n in range(0,21,2)]
+# lista = [n/2 for n in range(0,21,2)]
+# lista = [n for n in range(0,21,2) if n*2 > 10]
+# lista = [n if n*2 > 10 else 'no' for n in range(0,21,2) ]
+# print(lista)
+#
+# ## hay que hacer buen legibilidad
+# pies = [10,20,30,40,50]
+# metro = [round(p/3.281, 2) for p in pies]
+# print(metro)
+#
+#
+# valores = [1, 2, 3, 4, 5, 6, 9.5]
+# valores_pares = [val for val in valores  if val%2 == 0]
+# print(valores_pares)
+
+
+####MATCH
+
+serie = 'N-02'
+
+# if serie == 'N-01':
+#     print('Samsung')
+# elif serie == 'N-02':
+#     print('Nokia')
+# elif serie == 'N-03':
+#     print('Motorola')
+# else:
+#     print('No existe')
+#
+## ahora con match
+#
+# match serie:
+#     case 'N-01':
+#         print('Samsung')
+#     case 'N-02':
+#         print('Nokia')
+#     case 'N-03':
+#         print('Motorola')
+#     case _:
+#         print('No existe')
+#
+# cliente = {'nombre':'Federico',
+#            'edad':45,
+#            'ocupacion': 'instructor'}
+#
+# pelicula = {'titulo':'Matrix',
+#             'ficha_tecnica':{'protagonista':'Keanu reeves',
+#                              'director':'Lana y lilly wachowski'}}
+#
+# elementos = [cliente, pelicula, 'libro']
+#
+# ## aqui lo arreglos que esstan en case,detectan patrones deben tener la misma estructura para poder cacharlo, switch
+# for e in elementos:
+#     match e:
+#         case {'nombre': nombre,
+#               'edad':edad,
+#               'ocupacion':ocupacion}:
+#             print('Es un cliente')
+#             print(nombre, edad, ocupacion)
+#         case {'titulo':titulo,
+#               'ficha_tecnica':{'protagonista':prota, 'director':directo}}:
+#             print('Es una pelicula')
+#             print(titulo, prota, directo)
+#         case _:
+#             print('No se que es esto')
+
+from random import randint
+
+nombre = input('Cual es tu nombre? ')
+print(f'Bueno, {nombre}, he pensado un número entre 1 y 100, y tienes solo ocho intentos'
+      f'para adivinar cuál crees que es el número(Solo ingresar numeros)')
+
+n_intentos = 8
+aleatorio = randint(1,101)
+print(aleatorio)
+
+while 0 < n_intentos <= 8:
+    print(f'\nNo Intentos disponibles: {n_intentos}')
+    numero_ingresado = input('Escoge tu numero: ')
+    try:
+        if 0 <= int(numero_ingresado) <= 100:
+            if int(numero_ingresado) == aleatorio:
+                print('\nGanaste. Adivinaste el numero')
+                break
+            elif int(numero_ingresado) > aleatorio:
+                print('Incorrecto,  has elegido un número mayor al número secreto.')
+            elif int(numero_ingresado) < aleatorio:
+                print('Incorrecto,  has elegido un número menor al número secreto.')
+        else:
+            print('El numero que seleccionaste esta fuera del rango de 1-100')
+    except:
+        print('Lo que escribiste NO es un numero')
+
+    n_intentos -= 1
+    if n_intentos == 0:
+        n_intentos = 8
+        print('Intentaremos de nuevo 8 veces hasta q ganes')
+

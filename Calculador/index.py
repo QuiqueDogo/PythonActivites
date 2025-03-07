@@ -60,7 +60,7 @@
 # #### Operador Matematicos
 x=6
 y=2
-z=7
+z=4
 # print(f"{x} y {y} suman: {x+y}")
 # print(f"{x} y {y} restan: {x-y}")
 # print(f"{x} y {y} multiplidos: {x*y}")
