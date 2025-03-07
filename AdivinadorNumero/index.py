@@ -337,7 +337,7 @@ print(f'Bueno, {nombre}, he pensado un número entre 1 y 100, y tienes solo ocho
 
 n_intentos = 8
 aleatorio = randint(1,101)
-print(aleatorio)
+# print(aleatorio)
 
 while 0 < n_intentos <= 8:
     print(f'\nNo Intentos disponibles: {n_intentos}')
