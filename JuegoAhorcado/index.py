@@ -111,7 +111,7 @@
 #
 # print(cantidad_pares(lista_numeros))
 
-precios_cafe = [('capuchino', 1.5), ('expreso',2.5), ('moka',1.9)]
+# precios_cafe = [('capuchino', 1.5), ('expreso',2.5), ('moka',1.9)]
 
 # for cafe,precio in precios_cafe:
 #     print(cafe)
@@ -383,3 +383,100 @@ precios_cafe = [('capuchino', 1.5), ('expreso',2.5), ('moka',1.9)]
 
 #choice
 #  pedir letra, validar letra, chequear letra, ver si gano
+
+from random import choice
+from time import sleep
+
+
+
+palabras = ['gato','perro','perico','leon','cocodrilo','murcielago','cucaracha']
+palabra_seleccionada = choice(palabras)
+vidas=6
+def palabra_guiones(palabra):
+    letras = []
+    for p in palabra:
+        letras.append('_')
+    letras = ''.join(letras)
+    return letras
+
+guiones = palabra_guiones(palabra_seleccionada)
+
+abecedario =''
+for i in range(26):
+    abecedario = abecedario + (chr(ord('a') + i))
+print(f'Bienvenido al juego del Ahorcado, por favor sigue las instrucciones para jugar. Tienes 6 vidas.\n'
+      f'La categoria es animales. '
+      f'La palabra secreta tiene {len(guiones)} letras \n'
+      f'{guiones}')
+
+def validar_letra(letra):
+    ingreso = letra
+    while ingreso not in abecedario:
+        ingreso = input('Por favor elige una palabara del abecedario')
+    return ingreso
+
+def validar_len(letra):
+    ingreso = letra
+    while len(ingreso) != 1:
+        ingreso = input('Solo se puede escoger una letra. Por favor seleccione solo una: ')
+    return ingreso
+
+lista_erronea = []
+lista_buena = guiones
+
+def guiones_por_palabras(letra, seleccionada ,lista):
+    contenido = list(lista)
+    seleccionada = list(seleccionada)
+
+    for i,p in enumerate(seleccionada):
+        if p == letra: contenido[i] = letra
+
+
+    return contenido
+
+def recorrer_palabra(letra):
+    atino = False
+    buena = lista_buena
+    if letra in palabra_seleccionada:
+
+        buena = guiones_por_palabras(letra, palabra_seleccionada, lista_buena)
+        atino = True
+    else:
+        print('La letra seleccionada no esta en la palabra secreta\n')
+        lista_erronea.append(letra)
+
+    return lista_erronea,buena, atino
+
+while vidas > 0:
+    incorrectas = []
+    letras = ''
+    if vidas != 6:
+        print(f'Aun quedan {vidas} vidas')
+        for p in lista_erronea:
+            incorrectas.append(p.upper())
+        letras = '-'.join(incorrectas)
+        print(f'Estas son las letras que has usado: {letras}')
+
+    ingreso_letra = input('Ingresa una letra ')
+    ingreso_letra = validar_len(ingreso_letra) #validamos longitud
+    ingreso_letra = validar_letra(ingreso_letra) #validamos que este en el abecedario
+
+    no,si,atino = recorrer_palabra(ingreso_letra)
+    lista_buena = si
+
+    palabra_cambiada = []
+    for p in si:
+        palabra_cambiada.append(p)
+    palabra_cambiada = ''.join(palabra_cambiada)
+    print(f'\nLa palabra es: {palabra_cambiada}')
+    if not atino:
+        vidas -= 1
+    if '_' not in palabra_cambiada:
+        print('Ganaste en el juego del Ahorcado')
+        break
+
+if vidas == 0:
+    print('Perdiste en el juego del Ahorcado')
+
+
+
