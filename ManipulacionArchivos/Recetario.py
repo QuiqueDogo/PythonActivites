@@ -127,8 +127,7 @@
 # ruta = Path('C:/Users/Usuario/Desktop/Curso Python') / 'Cuestionario Día 6' / 'Pregunta 1'
 # print(ruta)
 # print(ruta.parents[0])
-
-
+import os
 from os import system
 from pathlib import Path
 
@@ -170,31 +169,124 @@ opcion_elegida = comprobar_opcion(opcion_elegida)
 
 sigue = True
 
-# def reset_menu():
-#     bienvenida_recetario()
-#     opcion_elegida = pedir_opcion()
-#     opcion_elegida = comprobar_opcion(opcion_elegida)
-
 def leer_receta():
-    print('Estos son los pri')
-    print(ruta_home)
-    x = [{index: child} for index, child in enumerate(ruta_home.iterdir()) if child.is_dir()]
-    for child in ruta_home.iterdir():
-        if child.is_dir():
-            print(child)
-    print(x[0].items())
+    print('Estos son los categorias de recetas.')
+    x = {index: child for index, child in enumerate(ruta_home.iterdir()) if child.is_dir()}
 
+    for keys, child in x.items():
+        print(f'[{keys+1}] - {child.name}')
+
+    categoria = input('Por favor, selecciona una categoria a leer: ')
+    categoria = int(categoria) - 1
+    path_categoria = x.values()
+    for keys, child in x.items():
+        if keys == categoria:
+            path_categoria = Path(child)
+    cat = {index: child for index, child in enumerate(path_categoria.rglob('*.txt'))}
+
+    for keys, child in cat.items():
+        print(f"[{keys + 1}] {child.name}")
+    receta = input('Por favor, seleccione una receta a leer:')
+    receta = int(receta) - 1
+    system('cls')
+    for keys, child in cat.items():
+        if keys == receta:
+            archivo = open(child)
+            print(archivo.read())
+            archivo.close()
+    print('\n')
+    return True
+
+def crear_receta():
+    print('Estos son los categorias de recetas.')
+    x = {index: child for index, child in enumerate(ruta_home.iterdir()) if child.is_dir()}
+    for keys, child in x.items():
+        print(f'[{keys + 1}] - {child.name}')
+
+    categoria = input('Por favor, selecciona la categoria donde crear la receta: ')
+    categoria = int(categoria) - 1
+    nombre_receta = input('Por favor, escribe el nombre de la receta: ')
+    contenido_receta = input('Por favor, escriba el contenido de la receta: ')
+    for keys, child in x.items():
+        if keys == categoria:
+            print(f'[{keys + 1}] - {child}')
+            file_create = Path(f'{child}/{nombre_receta}.txt')
+            file_create.write_text(contenido_receta)
+    system('cls')
+    print('Receta Creada!\n')
+    return True
+
+def crear_categoria():
+    categoria = input('Por favor, escribe el nombre de la categoria a crear: ')
+    os.makedirs(f'{ruta_home}/{categoria}')
+    system('cls')
+    print('Categoria Creada Creada!\n')
+
+    return True
+
+def eliminar_receta():
+    print('Estos son los categorias de recetas.')
+    x = {index: child for index, child in enumerate(ruta_home.iterdir()) if child.is_dir()}
+
+    for keys, child in x.items():
+        print(f'[{keys + 1}] - {child.name}')
+
+    categoria = input('Por favor, selecciona una categoria a leer: ')
+    categoria = int(categoria) - 1
+    path_categoria = x.values()
+    for keys, child in x.items():
+        if keys == categoria:
+            path_categoria = Path(child)
+
+    cat = {index: child for index, child in enumerate(path_categoria.rglob('*.txt'))}
+
+    for keys, child in cat.items():
+        print(f"[{keys + 1}] {child.name}")
+    receta = input('Por favor, seleccione una receta a eliminar:')
+    receta = int(receta) - 1
+
+    system('cls')
+    for keys, child in cat.items():
+        if keys == receta:
+            print(child,'aqui')
+            os.remove(f'{child}')
+    print('Receta Eliminada!\n')
+
+    return True
+
+def eliminar_categoria():
+    print('Estos son los categorias de recetas.')
+    x = {index: child for index, child in enumerate(ruta_home.iterdir()) if child.is_dir()}
+    for keys, child in x.items():
+        print(f'[{keys + 1}] - {child.name}')
+
+    categoria = input('Por favor, selecciona la categoria a eliminar: ')
+    categoria = int(categoria) - 1
+    for keys, child in x.items():
+        if keys == categoria:
+            print(child)
+            os.rmdir(child)
+    system('cls')
+    print('Categoria Eliminada \n')
+
+    return True
 
 def salir_progrma():
-    sigue = False
     print('Hasta luego')
 
+    return False
+
 def default_case():
-    return 'Invalid case'
+    print('Seleccione una opcion de la lista')
+    return True
 
 def switch_case(value):
     switch = {
         1: leer_receta,
+        2: crear_receta,
+        3: crear_categoria,
+        4: eliminar_receta,
+        5: eliminar_categoria,
         6: salir_progrma,
     }
     return switch.get(value, default_case)()
@@ -203,12 +295,13 @@ def switch_case(value):
 
 
 while sigue:
-    sigue = switch_case(opcion_elegida)
-    # print(result)
-
-
-    # system('cls')
-    print(opcion_elegida, type(opcion_elegida))
+    opcion = switch_case(opcion_elegida)
+    if not opcion:
+        sigue = False
+    else:
+        bienvenida_recetario()
+        opcion_elegida = pedir_opcion()
+        opcion_elegida = comprobar_opcion(opcion_elegida)
 
 
 
