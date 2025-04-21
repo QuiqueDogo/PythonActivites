@@ -189,34 +189,74 @@
 
 #Poliformismo - muchas formas, los objecctos pueden tomar diferentes formas
 # objectos de diferentes clases, puedes compartir el mismo nombre de metodo.
+#
+# class Vaca:
+#     def __init__(self, nombre): #constructor
+#         self.nombre = nombre
+#
+#     def hablar(self):
+#         print(self.nombre + ' dice muuu')
+#
+# class Oveja:
+#     def __init__(self, nombre):  # constructor
+#         self.nombre = nombre
+#
+#     def hablar(self):
+#         print(self.nombre + ' dice beee')
+#
+# vaca1 = Vaca('aurora')
+# oveja1 = Oveja('nube')
+#
+# # vaca1.hablar()
+# # oveja1.hablar()
+#
+# animales = [vaca1, oveja1]
+#
+# for animal in animales: # llamar a cada uno de estos objectos pero ejecutando sus metodos de nombre igual
+#     animal.hablar()
+#
+# def animal_habla(animal):
+#     animal.hablar()
+#
+# animal_habla(vaca1)
+# animal_habla(oveja1)
 
-class Vaca:
-    def __init__(self, nombre): #constructor
-        self.nombre = nombre
 
-    def hablar(self):
-        print(self.nombre + ' dice muuu')
+#Metodos especiales __nombre__, __init__
+mi_lista=[1,1,1,1,1,1]
+print(len(mi_lista))
 
-class Oveja:
-    def __init__(self, nombre):  # constructor
-        self.nombre = nombre
+class Objecto:
+    pass
 
-    def hablar(self):
-        print(self.nombre + ' dice beee')
+mi_objeto = Objecto()
 
-vaca1 = Vaca('aurora')
-oveja1 = Oveja('nube')
+print(mi_objeto)
 
-# vaca1.hablar()
-# oveja1.hablar()
 
-animales = [vaca1, oveja1]
+class CD:
 
-for animal in animales: # llamar a cada uno de estos objectos pero ejecutando sus metodos de nombre igual
-    animal.hablar()
+    def __init__(self, autor, titulo, canciones):
+        self.autor =autor
+        self.titulo = titulo
+        self.canciones = canciones
 
-def animal_habla(animal):
-    animal.hablar()
+    def __str__(self): #Nombrar el objecto a como quieres que se imprima,
+        return f'Album: {self.titulo} de {self.autor}'
 
-animal_habla(vaca1)
-animal_habla(oveja1)
+    def __len__(self): # metodos under
+        return self.canciones
+
+    def __del__(self):
+        print('Se ha eliminado el CD')
+
+mi_cd = CD('Pink floyd', 'The Wall', 24)
+print(mi_cd)
+print(len(mi_cd))
+
+del mi_cd
+
+# print(mi_cd)
+
+
+
