@@ -223,40 +223,104 @@
 
 
 #Metodos especiales __nombre__, __init__
-mi_lista=[1,1,1,1,1,1]
-print(len(mi_lista))
-
-class Objecto:
-    pass
-
-mi_objeto = Objecto()
-
-print(mi_objeto)
-
-
-class CD:
-
-    def __init__(self, autor, titulo, canciones):
-        self.autor =autor
-        self.titulo = titulo
-        self.canciones = canciones
-
-    def __str__(self): #Nombrar el objecto a como quieres que se imprima,
-        return f'Album: {self.titulo} de {self.autor}'
-
-    def __len__(self): # metodos under
-        return self.canciones
-
-    def __del__(self):
-        print('Se ha eliminado el CD')
-
-mi_cd = CD('Pink floyd', 'The Wall', 24)
-print(mi_cd)
-print(len(mi_cd))
-
-del mi_cd
+# mi_lista=[1,1,1,1,1,1]
+# print(len(mi_lista))
+#
+# class Objecto:
+#     pass
+#
+# mi_objeto = Objecto()
+#
+# print(mi_objeto)
+#
+#
+# class CD:
+#
+#     def __init__(self, autor, titulo, canciones):
+#         self.autor =autor
+#         self.titulo = titulo
+#         self.canciones = canciones
+#
+#     def __str__(self): #Nombrar el objecto a como quieres que se imprima,
+#         return f'Album: {self.titulo} de {self.autor}'
+#
+#     def __len__(self): # metodos under
+#         return self.canciones
+#
+#     def __del__(self):
+#         print('Se ha eliminado el CD')
+#
+# mi_cd = CD('Pink floyd', 'The Wall', 24)
+# print(mi_cd)
+# print(len(mi_cd))
+#
+# del mi_cd
 
 # print(mi_cd)
 
+# Ejercicio Cuenta Bancaria, haremos que una persona pueda realizar operaciones a su cuenta bancaria
+
+class Persona:
+    def __init__(self, nombre, apellido):
+        self.nombre = nombre
+        self.apellido = apellido
+
+class Cliente(Persona):
+    def __init__(self, cuenta, balance:int, nombre, apellido):
+        super().__init__(nombre, apellido)
+        self.cuenta = cuenta
+        self.balance = balance
+
+    def __str__(self):
+        return f'{self.nombre} {self.apellido} con numero de cuenta: {self.cuenta} tiene ${self.balance} disponible'
+
+    def info(self):
+        return f'{self.nombre} {self.apellido} con numero de cuenta: {self.cuenta} tiene ${self.balance} disponible'
+
+    def depositar(self):
+        monto = input('¿Cuanto deseas depositar?')
+        self.balance += int(monto)
+        print('\nMonto Depositado.')
+        return f'Se Ha ingresado ${monto} a tu cuenta.'
+        # self.__str__()
+
+    def retirar(self):
+        monto_retirado = int(input('¿Cual es el monto a retirado?'))
+        res = self.balance - monto_retirado
+        # print(res)
+        if res < 0:
+            return f'Saldo Insuficiente para retirar'
+        else:
+            return f'Se han retirado ${monto_retirado} de tu cuenta.'
 
 
+print(f'Bienvenido al Banco. Por favor ingrese sus datos para comenzar:\n ')
+Pcuenta = input('Ingresa tu numero de cuenta:')
+Pbalance = input('Ingresa el balance inicial:')
+Pnombre = input('Ingresa tu nombre:')
+Papellido = input('Ingresa tu Apellido:')
+
+nuevo_cliente = Cliente(Pcuenta, int(Pbalance),Pnombre,Papellido)
+print(nuevo_cliente)
+loop = True
+funciones = {
+    '1':nuevo_cliente.info,
+    '2':nuevo_cliente.depositar,
+    '3':nuevo_cliente.retirar,
+}
+
+
+while loop:
+    print(f'\nPor favor elige una'
+          f'de las siguientes opciones:\n'
+          f'[1] - Consultar Informacion\n'
+          f'[2] - Depositar\n'
+          f'[3] - Retirar\n'
+          f'[4] - Finalizar Programa'
+          )
+    paso = input('Seleccione una opcion: \n')
+    if paso == '4':
+        print('Hasta Pronto')
+        break
+    else:
+        print(funciones[paso]())
