@@ -1,9 +1,10 @@
-
 departaments = {
     1:'P-',
     2:'F-',
     3:'C-'
 }
+
+
 
 
 #decorador
@@ -19,7 +20,7 @@ def decorar_turno(funcion):
 
 @decorar_turno
 def turno_dado(departamento, numero):
-    print(f'----------  {departamento}{print(next(numero))}  -----------')
+    print(f'----------  {departamento}{next(numero)}  -----------')
 
 
 #generador
