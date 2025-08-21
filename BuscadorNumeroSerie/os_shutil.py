@@ -112,7 +112,7 @@
 #
 # # palabra = 'ayuda' in texto
 # # print(palabra)
-import re
+# import re
 #
 # patron = 'ayuda'
 #
@@ -139,9 +139,96 @@ import re
 # chequear = re.search(patron, clave)
 # print(chequear)
 
-texto = 'No antendemos los jueves por la tarde'
+# texto = 'No antendemos los jueves por la tarde'
+
 
 # buscar = re.search(r'...demos...', texto) ## puntos trae lo que tiene a lados
-buscar = re.findall(r'[^\s]+', texto) ## busca por expresion ^ pal inicio , $ pal final, [^] se excluye el patron
+# buscar = re.findall(r'[^\s]+', texto) ## busca por expresion ^ pal inicio , $ pal final, [^] se excluye el patron
 
-print(''.join(buscar))
+# print(''.join(buscar))
+
+
+# COMPRIMR ARCHIVOS Y DESCOMPRIMIR - zipfile shutil
+
+# import zipfile
+#
+# mi_zip = zipfile.ZipFile('archivo_comprimido.zip', 'w')
+# mi_zip.write('mi_texto_A.txt')
+# mi_zip.write('mi_texto_B.txt')
+# mi_zip.close()
+
+#
+# zip_abierto = zipfile.ZipFile('archivo_comprimido.zip', 'r')
+#
+# zip_abierto.extractall()
+
+
+# import shutil
+# import os
+# from pathlib import Path
+#
+# # ruta_general = Path(os.getcwd())
+# # ruta = Path(ruta_general.parent, 'ManipulacionArchivos')
+# # print(ruta)
+# # # print(ruta)
+# # # carpeta_origen = 'C:\\Users\\Luis\\python\\BuscadorNumeroSerie'
+# # archivo_destino = 'Todo_Comprimido'
+# # #
+# # shutil.make_archive(archivo_destino, 'zip', ruta)
+#
+# shutil.unpack_archive('Todo_Comprimido.zip', 'Extraccion terminada','zip')
+
+
+import re
+import os
+import time
+import datetime
+from pathlib import Path
+import math
+
+inicio = time.time()
+
+ruta = 'C:\\Users\\Usuario\\Desktop\\Mi_Gran_Directorio'
+
+mi_patron = r'N\D{3}-\d{5}'
+
+hoy = datetime.date.today()
+nros_encontrados = []
+
+archivos_encontrados = []
+
+def buscar_numero(archivo, patron):
+    este_archivo = open(archivo, 'r')
+    texto = este_archivo.read()
+    if re.search(patron, texto):
+        return re.search(patron, texto)
+    else:
+        return ''
+
+def crear_listas():
+    for carpeta, subcarpeta, archivo in os.walk(ruta):
+        for a in archivo:
+            resultado = buscar_numero(Path(carpeta,a), mi_patron)
+            if resultado != '':
+                nros_encontrados.append((resultado.group()))
+                archivos_encontrados.append(a.title())
+
+def mostrar_todo():
+    indice = 0
+    print('-' * 50)
+    print(f'Fecha de Búsqueda: {hoy.day}/{hoy.month}/{hoy.year}')
+    print('\n')
+    print('ARCHIVO\t\t\tNRO. SERIE')
+    print('-------\t\t\t----------')
+    for a in archivos_encontrados:
+        print(f'{a}\t{nros_encontrados[indice]}')
+        indice += 1
+    print('\n')
+    print(f'Números encotrados: {len(nros_encontrados)}')
+    fin = time.time()
+    duracion = fin - inicio
+    print(f'Duración de la búsqueda: {math.ceil(duracion)} segundos')
+    print('-' * 50)
+
+crear_listas()
+mostrar_todo()
