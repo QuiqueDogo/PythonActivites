@@ -24,13 +24,13 @@ import os
 class Player(py.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
-        self.image = py.image.load("bird.png").convert_alpha()
+        self.image = py.image.load("bird.png")
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
 
         self.vel_y = 0
         self.gravity = 0.8
-        self.jump_force = -12
+        self.jump_force = -8
 
     def update(self, keys):
 
